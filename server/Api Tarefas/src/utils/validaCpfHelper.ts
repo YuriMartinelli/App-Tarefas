@@ -1,4 +1,4 @@
-export default function cpfEhValido(cpf): boolean{
+export default function cpfEhValido(cpf: string): boolean{
     cpf = cpf.replace(/\D/g, '');
 
     if (cpf.length !== 11) return false;

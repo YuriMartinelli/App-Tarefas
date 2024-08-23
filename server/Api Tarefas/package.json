@@ -4,8 +4,7 @@
   "description": "Api com Node.js para gerenciamento de tarefas",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.ts"
+    "start": "nodemon src/index.ts"
   },
   "author": "Yuri Martinelli",
   "license": "ISC",
@@ -15,12 +14,14 @@
     "mysql2": "^3.11.0",
     "nodemon": "^3.1.4",
     "path": "^0.12.7",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "typescript": "^5.5.4"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/sequelize": "^4.28.20",
+    "@types/typescript": "^0.4.29",
     "sequelize-cli": "^6.6.2"
   }
 }
