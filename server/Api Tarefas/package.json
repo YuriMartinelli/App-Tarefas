@@ -1,0 +1,26 @@
+{
+  "name": "api-tarefas",
+  "version": "1.0.0",
+  "description": "Api com Node.js para gerenciamento de tarefas",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.ts"
+  },
+  "author": "Yuri Martinelli",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0",
+    "nodemon": "^3.1.4",
+    "path": "^0.12.7",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/sequelize": "^4.28.20",
+    "sequelize-cli": "^6.6.2"
+  }
+}
