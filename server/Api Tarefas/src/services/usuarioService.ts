@@ -10,11 +10,9 @@ export class UsuarioService {
 
     async conectarPrisma() {
         await this.prisma.$connect();
-
     }
 
     async cadastrar(infos: any): Promise<Object> {
-
         const novoUsuario = await this.prisma.usuario.create({ data: infos });
 
         await this.prisma.$disconnect();
@@ -34,6 +32,55 @@ export class UsuarioService {
         await this.prisma.$disconnect();
 
         return usuarios;
+    }
+
+    async consultarById(id: any) {
+        const usuario = await this.prisma.usuario.findUnique({ where: { id: id } });
+
+        if (!usuario) {
+            throw new Error("Usuário não encontrado!")
+        }
+
+        await this.prisma.$disconnect();
+
+        return usuario;
+    }
+
+    async atualizar(id: number, updates: Object) {
+        const usuario = this.consultarById(id);
+
+        if (!usuario) {
+            throw new Error("Usuário não encontrado!")
+        }
+
+        const usuarioAtualizado = await this.prisma.usuario.update({
+            where: { id: id },
+            data: updates
+        });
+
+        const resposta = {
+            msg: "Usuário atualizado com sucesso!",
+            usuario: usuarioAtualizado
+        };
+
+        return resposta;
+    }
+
+    async deletar(id: number) {
+        const usuario = this.consultarById(id);
+
+        if (!usuario) {
+            throw new Error("Usuário não encontrado!")
+        }
+
+        await this.prisma.usuario.deleteMany({ where: { id: id } })
+
+        const resposta = {
+            msg: "Usuario deletado com sucesso!"
+        }
+
+        return resposta
+
     }
 
 }
