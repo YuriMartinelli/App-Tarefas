@@ -1,21 +1,28 @@
 import { Request, Response } from "express";
-import UsuarioService from "../services/usuarioService"
+import { UsuarioService } from "../services/usuarioService"
 
-class UsuarioController {
-    private usuarioService: UsuarioService = new UsuarioService();
+export class UsuarioController {
+    constructor(readonly usuarioService: UsuarioService) {
+        
+    }
 
-    async cadastrar(req: Request, res: Response): Promise<Response> {  
+    async cadastrar(req: Request, res: Response): Promise<Response> {
         try {
             const infos = req.body;
-            const novoUsuario = await this.usuarioService.cadastrar(infos)
-            return res.status(201).send(novoUsuario);
+            const resposta = await this.usuarioService.cadastrar(infos)
+            return res.status(201).json(resposta);
         } catch (error) {
             return res.status(500).send("Erro ao cadastrar usuário. Erro: " + error);
         }
     }
 
     async consultarTodos(req: Request, res: Response): Promise<Response> {
-        throw new Error("Method not implemented.");
+        try {
+            const usuarios = await this.usuarioService.consultarTodos()
+            return res.status(200).json(usuarios);
+        } catch (error) {
+            return res.status(500).send("Erro ao consultar usúarios. Erro: " + error);
+        }
     }
 
     async consultarById(req: Request, res: Response): Promise<Response> {
@@ -30,5 +37,3 @@ class UsuarioController {
         throw new Error("Method not implemented.");
     }
 }
-
-export default UsuarioController;

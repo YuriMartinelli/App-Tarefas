@@ -1,11 +1,10 @@
 import { Router } from "express";
-import UsuarioController from "../controllers/usuarioController";
+import { usuarioController } from "../controllers/indexUsuarioController";
 
 const usuarioRoute = Router();
-const usuarioController = new UsuarioController();
 
 usuarioRoute
-    .post("/cadastrar", usuarioController.cadastrar)
+    .post("/cadastrar", (req, res) => usuarioController.cadastrar(req, res))
     .get("/consultarTodos", usuarioController.consultarTodos)
     .get("/consultarById/:id", usuarioController.consultarById)
     .put("/atualizar/:id", usuarioController.atualizar)

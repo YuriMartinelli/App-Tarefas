@@ -1,19 +1,39 @@
-import { Usuario } from "../database/models/usuario.model"
+import { PrismaClient } from "@prisma/client"
 
-class UsuarioService {
+export class UsuarioService {
+    private prisma: PrismaClient;
+
     constructor() {
-        console.log("oi");
-        
+        this.prisma = new PrismaClient();
+        this.conectarPrisma();
     }
-    async cadastrar(infos: any) {
-        try {
-            const novoUsuario = await Usuario.create(infos)
-            return novoUsuario;
-        } catch (error) {
-            return { error: error, msg: "Erro ao criar usúario" }
+
+    async conectarPrisma() {
+        await this.prisma.$connect();
+
+    }
+
+    async cadastrar(infos: any): Promise<Object> {
+
+        const novoUsuario = await this.prisma.usuario.create({ data: infos });
+
+        await this.prisma.$disconnect();
+
+        const resposta = {
+            msg: "Usúario criado com sucesso!",
+            id: novoUsuario.id,
+            nome: novoUsuario.nome
         }
+
+        return resposta
+    }
+
+    async consultarTodos() {
+        const usuarios = await this.prisma.usuario.findMany();
+
+        await this.prisma.$disconnect();
+
+        return usuarios;
     }
 
 }
-
-export default UsuarioService;
