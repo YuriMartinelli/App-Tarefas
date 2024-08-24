@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import usuarioRoute from "./routes/usuario.route"
+import tarefaRoute from './routes/tarefas.route';
 
 export class App {
     private express: express.Application;
@@ -8,9 +9,9 @@ export class App {
 
     constructor() {
         this.express = express();
-        this.middlewares(); 
-        this.routes(this.express); 
-        this.listen(); 
+        this.middlewares();
+        this.routes(this.express);
+        this.listen();
     }
 
     public getApp(): express.Application {
@@ -30,6 +31,7 @@ export class App {
 
     public routes(app: express.Application): void {
         app.use('/usuarios/', usuarioRoute);
-    
-      }
+        app.use('/tarefas/', tarefaRoute);
+
+    }
 }
