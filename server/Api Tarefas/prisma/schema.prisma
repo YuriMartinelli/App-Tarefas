@@ -14,16 +14,28 @@ datasource db {
 }
 
 model Usuario {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  nome    String
-  cpf     String
-  senha   String
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  nome  String
+  cpf   String
+  senha String
+  Token Token[]
 }
 
-model Tarefa{
-  id          Int  @id @default(autoincrement())
-  titulo      String
-  descricao   String
-  concluida   Boolean
+model Tarefa {
+  id        Int     @id @default(autoincrement())
+  titulo    String
+  descricao String
+  concluida Boolean
+}
+
+model Token {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  tipo      String
+  usado     Boolean  @default(false)
+  createdAt DateTime @default(now())
+  expiredAt DateTime @default(now())
+  usuarioId Int
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
 }

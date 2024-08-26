@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import usuarioRoute from "./routes/usuario.route"
 import tarefaRoute from './routes/tarefas.route';
+import { token } from './utils/createTokenHelper';
 
 export class App {
     private express: express.Application;
@@ -15,6 +16,8 @@ export class App {
     }
 
     public getApp(): express.Application {
+        console.log(token);
+        
         return this.express;
     }
 
@@ -32,6 +35,5 @@ export class App {
     public routes(app: express.Application): void {
         app.use('/usuarios/', usuarioRoute);
         app.use('/tarefas/', tarefaRoute);
-
     }
 }

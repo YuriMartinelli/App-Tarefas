@@ -25,11 +25,11 @@ export class UsuarioController {
         }
     }
 
-    async consultarById(req: Request, res: Response): Promise<Response> {
+    async consultarByParam(req: Request, res: Response): Promise<Response> {
         try {
-            const id = req.params.id
+            const params = req.body
 
-            const usuario = await this.usuarioService.consultarById(Number(id))
+            const usuario = await this.usuarioService.consultarByParam(params)
             return res.status(200).json(usuario);
         } catch (error) {
             return res.status(500).send("Erro ao consultar usúario. Erro: " + error);

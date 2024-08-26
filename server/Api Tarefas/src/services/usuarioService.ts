@@ -34,8 +34,8 @@ export class UsuarioService {
         return usuarios;
     }
 
-    async consultarById(id: any) {
-        const usuario = await this.prisma.usuario.findUnique({ where: { id: id } });
+    async consultarByParam(params: any) {
+        const usuario = await this.prisma.usuario.findUnique({ where: params });
 
         if (!usuario) {
             throw new Error("Usuário não encontrado!")
@@ -47,7 +47,7 @@ export class UsuarioService {
     }
 
     async atualizar(id: number, updates: Object) {
-        const usuario = this.consultarById(id);
+        const usuario = this.consultarByParam({ id: id });
 
         if (!usuario) {
             throw new Error("Usuário não encontrado!")
@@ -67,7 +67,7 @@ export class UsuarioService {
     }
 
     async deletar(id: number) {
-        const usuario = this.consultarById(id);
+        const usuario = this.consultarByParam({ id: id });
 
         if (!usuario) {
             throw new Error("Usuário não encontrado!")
