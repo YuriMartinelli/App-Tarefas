@@ -1,7 +1,9 @@
-import { NextFunction, Request, Response } from "express";
+
 import Jwt, { verify } from "jsonwebtoken"
 import { UsuarioInterface } from "../interfaces/usuario.interface";
 import { UsuarioService } from "../services/usuarioService";
+import { NextFunction, Request, Response } from "express";
+import { ForbiddenError, UnauthorizedError } from "../helpers/apiErrors";
 
 export const verificarToken = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -16,20 +18,20 @@ export const verificarToken = async (req: Request, res: Response, next: NextFunc
         const payload: any = verify(token, secret);
 
         if (!payload) {
-            throw new Error("Token inválido!");
+            throw new UnauthorizedError();
         }
 
-        const usuario = await usuarioService.consultarById(payload.id);
+        const usuario = await usuarioService.consultarByParam({ id: payload.id });
 
         if (!usuario) {
-            throw new Error("Usuário não encontrado!");
+            throw new UnauthorizedError();
         }
 
-        const {senha, ...usuarioLogado } = usuario;
-       
+        const { senha, ...usuarioLogado } = usuario;
+
         next();
 
     } catch (error) {
-        throw new Error("Usuário não autenticado!");
+        throw new ForbiddenError();
     }
 }

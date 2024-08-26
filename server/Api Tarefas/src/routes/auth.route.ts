@@ -9,8 +9,8 @@ authRoute
     .get("/", verificarToken, authController.autenticado)
     .get("/eu", verificarToken, authController.eu)
 
-    .post("/login", verificarToken, authController.login)
-    // .post("/logout", verificarToken, authController.logout)
-    // .post("/refresh", verificarToken, authController.refresh)
+    .post("/login", (req, res) => authController.login(req,res))
+    .post("/logout", verificarToken, authController.logout)
+    .post("/refresh", verificarToken, authController.refresh)
 
 export default authRoute;

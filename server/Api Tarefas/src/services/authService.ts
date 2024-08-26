@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
 export class AuthService {
-
     private prisma: PrismaClient;
 
     constructor() {
@@ -19,13 +18,21 @@ export class AuthService {
         await this.prisma.$disconnect();
 
         const resposta = {
-            msg: "Usúario criado com sucesso!",
+            msg: "Token criado com sucesso!",
             id: novoToken.id,
-            usuario: novoToken.usuarioId
+            usuario: novoToken.usuarioId,
+            token: novoToken.token
         }
 
         return resposta
     }
+
+    async consultarByParam(param: any) {
+        const tokenEncontrado = await this.prisma.token.findFirst({ where: param });
+
+        return tokenEncontrado;
+    }
+
     async deletar(param: any) {
         await this.prisma.token.delete(param)
 
@@ -34,6 +41,7 @@ export class AuthService {
         }
 
         return resposta
-
     }
+
+
 }

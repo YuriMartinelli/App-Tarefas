@@ -10,7 +10,7 @@ export const validarUsuario = (usuario: UsuarioInterface) => {
         email: Joi.string()
             .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
         senha: Joi.string()
-            .pattern(new RegExp('^[a-zA-Z0-9]{8,30}$'))
+            .min(4)
     });
 
     return schema.validate(usuario, { presence: "required" })

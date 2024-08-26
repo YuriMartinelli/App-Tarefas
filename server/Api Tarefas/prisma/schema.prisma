@@ -31,7 +31,7 @@ model Tarefa {
 
 model Token {
   id        String   @id @default(cuid())
-  token     String   @unique
+  token     String   @unique  @db.VarChar(512)
   tipo      String
   usado     Boolean  @default(false)
   createdAt DateTime @default(now())

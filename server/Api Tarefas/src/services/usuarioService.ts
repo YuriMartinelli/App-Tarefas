@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client"
+import { criarHashSenha } from "../utils/criarHashSenha";
+import { validarUsuario } from "../helpers/validadoresHelper";
 
 export class UsuarioService {
     private prisma: PrismaClient;
@@ -13,7 +15,14 @@ export class UsuarioService {
     }
 
     async cadastrar(infos: any): Promise<Object> {
-        const novoUsuario = await this.prisma.usuario.create({ data: infos });
+        const { error, value } = validarUsuario(infos);
+        if (error) {
+            throw new Error(error?.message)
+        }
+        
+        value.senha = await criarHashSenha(value.senha);
+        
+        const novoUsuario = await this.prisma.usuario.create({ data: value });
 
         await this.prisma.$disconnect();
 

@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { tarefaController } from "../controllers";
+import { verificarToken } from "../middlewares/auth.middleware";
 
 const tarefaRoute = Router();
+tarefaRoute.use(verificarToken)
 
 tarefaRoute
     .post("/cadastrar", (req, res) => tarefaController.cadastrar(req, res))

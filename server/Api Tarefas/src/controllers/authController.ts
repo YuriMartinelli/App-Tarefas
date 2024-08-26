@@ -4,8 +4,8 @@ import { validarUsuario } from "../helpers/validadoresHelper";
 import { compare } from "bcrypt";
 import { PrismaClient } from '@prisma/client';
 import { AuthService } from "../services/authService";
-import { Jwt, verify } from "jsonwebtoken";
-import { refreshToken } from "../utils/createTokenHelper";
+import { Jwt, sign, verify } from "jsonwebtoken";
+import { refreshToken, token } from "../utils/createTokenHelper";
 
 export class AuthController {
     private prisma: PrismaClient;
@@ -30,7 +30,8 @@ export class AuthController {
         if (error) {
             return res.status(400).json({ message: error?.message })
         }
-
+        console.log(value.email);
+        
         const usuario = await this.usuarioService.consultarByParam({ email: value.email })
 
         if (!usuario) {
@@ -48,21 +49,22 @@ export class AuthController {
             nome: usuario.nome
         }
 
-        const refreshedToken = refreshToken(usuarioRefresh);
-
+        const novoToken = token(usuario);
+        console.log(novoToken);
+        
         const expiraEm = new Date();
 
         expiraEm.setDate(expiraEm.getDate() + 7);
 
-        res.cookie('refreshToken', refreshedToken, { httpOnly: true, sameSite: 'none', maxAge: 7 * 24 * 60 * 60 * 1000, secure: true });
+        res.cookie('refreshToken', novoToken, { httpOnly: true, sameSite: 'none', maxAge: 7 * 24 * 60 * 60 * 1000, secure: true });
 
         const data = {
             usuarioId: usuario!.id,
             tipo: "authentication",
-            token: refreshedToken,
+            token: novoToken,
         }
 
-        const resposta = this.authService.cadastrar(data);
+        const resposta = await this.authService.cadastrar(data);
 
         return res.status(200).json({ resposta })
     }
@@ -82,5 +84,36 @@ export class AuthController {
         res.clearCookie('refreshToken', { httpOnly: true, sameSite: 'none', maxAge: 0, secure: true });
 
         return res.sendStatus(204);
+    }
+
+    async refresh(req: Request, res: Response) {
+        try {
+            const refreshedToken = req.cookies['refreshToken'];
+
+            const payload: any = verify(refreshedToken, process.env.JWT_REFRESH_SECRET as string)
+
+            if (!payload) {
+                throw new Error("Payload errado!");
+            }
+            const param = {
+                usuarioId: payload.id,
+                tipo: "authentication",
+                expiredAt: {
+                    gte: new Date()
+                }
+            }
+            const dbToken = this.authService.consultarByParam(param);
+
+            if (!dbToken) {
+                throw new Error("Token errado!");
+            }
+
+            const token = sign({ id: payload.id, name: payload.name }, process.env.SECRET as string, { expiresIn: process.env.EXPIRES_IN_JWT_SECRET });
+
+            return res.status(200).send({ token })
+
+        } catch (error) {
+            throw new Error("deu errado")
+        }
     }
 }

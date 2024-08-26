@@ -7,7 +7,9 @@ const secret: any = process.env.SECRET;
 const refreshSecret: any = process.env.JWT_REFRESH_SECRET;
 
 export const token = (usuario: UsuarioInterface) => {
-    Jwt.sign(usuario, secret);
+    const novoToken = Jwt.sign(usuario, secret);
+
+    return novoToken;
 }
 
 export const refreshToken = (usuario:Partial<UsuarioInterface>) => {
