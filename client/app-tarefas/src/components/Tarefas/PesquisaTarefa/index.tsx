@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styled from "styled-components";
-import Input from "../Input";
-import { tarefas } from "./dadosPesquisa";
+import Input from "../../Input";
+import { tarefas } from "../dadosPesquisa";
 
 const PesquisaContainer = styled.section`
     display: flex;
@@ -9,6 +9,8 @@ const PesquisaContainer = styled.section`
     align-items: center;
     justify-content: center;
     margin-top: 20px;
+    font-family: 'Roboto', sans-serif;
+
 `;
 
 const Titulo = styled.h2`
@@ -31,6 +33,7 @@ const Resultado = styled.div`
     align-items: center;
     margin-bottom: 20px;
     cursor: pointer;
+
     color: #000;
     p {
         width: 200px;
@@ -43,7 +46,7 @@ const Resultado = styled.div`
     }
 `
 
-export default function Tarefa() {
+export default function PesquisarTarefa() {
     const [tarefaPesquisada, setTarefaPesquisada] = useState<Array<any>>([])
 
     return (
