@@ -3,6 +3,8 @@ import Header from './components/Header';
 import ListaTarefas from './components/Tarefas/ListaTarefas';
 import styled from 'styled-components';
 import CadastrarTarefa from './components/Tarefas/CadastrarTarefa';
+import Login from './components/Login';
+import CadastrarUsuario from './components/CadastrarUsuario';
 
 const AppContainer = styled.div`
     width: 100vw;
@@ -15,7 +17,7 @@ function App() {
   return (
     <AppContainer>
       <Header />
-      <CadastrarTarefa />
+      <CadastrarUsuario />
     </AppContainer>
   );
 }

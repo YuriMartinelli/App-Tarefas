@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { tarefas } from "../dadosPesquisa"
 import PesquisarTarefa from "../PesquisaTarefa"
 import { useState } from "react"
+import { Card } from "../../Card"
 
 const TarefaContainer = styled.section`
     display: flex;
@@ -9,18 +10,7 @@ const TarefaContainer = styled.section`
     gap: 1rem;
     margin-top: 30px;
 `
-const Card = styled.div`
-    align-items: space-between;
-    background-color: #FFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    display: flex;
-    margin: 0 auto;
-    max-width: 600px;
-    padding: 25px 20px;
-    justify-content: space-around;
-    width: 100%; 
-`
+
 
 const Cabecalho = styled.h2`
     display: flex;
