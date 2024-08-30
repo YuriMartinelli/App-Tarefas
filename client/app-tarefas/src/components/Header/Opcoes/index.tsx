@@ -20,10 +20,8 @@ const Opcao = styled.li`
 export default function OpcoesHeader() {
     return (
         <Opcoes>
-            <Opcao>Home</Opcao>
+            <Opcao>Tarefas cadastradas</Opcao>
             <Opcao>Cadastrar Tarefas</Opcao>
-            <Opcao>Tarefas pendentes</Opcao>
-            <Opcao>Tarefas concluidas</Opcao>
         </Opcoes>
     )
 

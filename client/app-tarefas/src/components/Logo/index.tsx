@@ -8,7 +8,7 @@ const LogoContainer = styled.div`
 `;
 
 const LogoImage = styled.img`
-    margin-right: 10px;
+    margin-bottom: 20px;
 `;
 
 export default function Logo() {
