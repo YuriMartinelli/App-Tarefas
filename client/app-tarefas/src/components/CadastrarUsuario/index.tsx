@@ -4,7 +4,7 @@ import { Card } from "../Card";
 
 export default function CadastrarUsuario() {
     return (
-        <Card margintop="150px">
+        <Card>
             <Form >
                 <div className="mb-3">
                     <Form.Label htmlFor="nome">Nome</Form.Label>

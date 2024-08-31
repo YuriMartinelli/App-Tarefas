@@ -11,6 +11,7 @@ export class App {
 
     constructor() {
         this.express = express();
+        this.express.use(cors({origin: '*'}));
         this.middlewares();
         this.routes(this.express);
         this.listen();

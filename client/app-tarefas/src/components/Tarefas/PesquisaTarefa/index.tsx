@@ -1,7 +1,8 @@
 import { useState } from "react"
 import styled from "styled-components";
 import Input from "../../Input";
-import { tarefas } from "../dadosPesquisa";
+import { TarefaInterface } from "../../../interfaces/tarefaInterface";
+import { getTarefas } from "../../../services/tarefas";
 
 const PesquisaContainer = styled.section`
     display: flex;
@@ -48,7 +49,17 @@ const Resultado = styled.div`
 
 export default function PesquisarTarefa() {
     const [tarefaPesquisada, setTarefaPesquisada] = useState<Array<any>>([])
+    const [tarefas, setTarefas] = useState<TarefaInterface[]>([]);
 
+    useState(() => {
+        fetchTarefas();
+    })
+
+    async function fetchTarefas() {
+        const tarefasApi: TarefaInterface[] = await getTarefas()
+        setTarefas(tarefasApi)
+    }
+    
     return (
         <PesquisaContainer>
             <Titulo>Tarefas</Titulo>
@@ -57,7 +68,7 @@ export default function PesquisarTarefa() {
                 placeholder="Pesquise por uma tarefa"
                 onBlur={(e) => {
                     const pesquisa = e.target.value;
-                    const tarefaPesquisada = tarefas.filter((tarefa) => tarefa.Titulo === pesquisa);
+                    const tarefaPesquisada = tarefas.filter((tarefa) => tarefa.titulo === pesquisa);
                     setTarefaPesquisada(tarefaPesquisada);
                 }}
             />
