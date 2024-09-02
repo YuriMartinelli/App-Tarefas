@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UsuarioService } from "../services/usuarioService";
-import { validarUsuario } from "../helpers/validadoresHelper";
+import { validarLoginUsuario } from "../helpers/validadoresHelper";
 import { compare } from "bcrypt";
 import { PrismaClient } from '@prisma/client';
 import { AuthService } from "../services/authService";
@@ -25,12 +25,11 @@ export class AuthController {
     }
 
     async login(req: Request, res: Response) {
-        const { error, value } = validarUsuario(req.body);
-
+        const { error, value } = validarLoginUsuario(req.body);
+        
         if (error) {
             return res.status(400).json({ message: error?.message })
         }
-        console.log(value.email);
         
         const usuario = await this.usuarioService.consultarByParam({ email: value.email })
 
@@ -38,7 +37,7 @@ export class AuthController {
             throw new Error("Email ou senha inválido!");
         }
 
-        const verificarSenha = await compare(value.senha, usuario.senha);
+        const verificarSenha = await compare(value.senha!, usuario.senha);
 
         if (!verificarSenha) {
             throw new Error("Email ou senha inválido!");
@@ -50,7 +49,6 @@ export class AuthController {
         }
 
         const novoToken = token(usuario);
-        console.log(novoToken);
         
         const expiraEm = new Date();
 

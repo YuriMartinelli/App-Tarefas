@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface CardProps {
-    justifyContent?: string;
+    justifycontent?: string;
     margintop?: string;
 }
 
@@ -14,7 +14,7 @@ export const Card = styled.div<CardProps>`
     margin: 0 auto;
     max-width: 600px;
     padding: 25px 20px;
-    justify-content: ${props => props.justifyContent || 'center'};
+    justify-content: ${props => props.justifycontent || 'center'};
     width: 100%; 
     margin-top: ${(props) => props.margintop || '0'};
 `

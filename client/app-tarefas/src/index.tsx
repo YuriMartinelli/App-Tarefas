@@ -6,7 +6,8 @@ import { createGlobalStyle } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Tarefas from './routes/tafefas';
+import Tarefas from './routes/Tarefas';
+import Login from './routes/Login';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -39,6 +40,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/tarefa" element={<Tarefas/>} />
+        <Route path="/login" element={<Login/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

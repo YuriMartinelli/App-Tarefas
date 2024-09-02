@@ -8,5 +8,5 @@ export const Botao = styled.button`
     border-radius: 5px;
     cursor: pointer;
     display: flex;
-    justify-content: ${props => props.justifyContent || "center"};
+    justify-content: ${props => props.justifycontent || "center"};
 `

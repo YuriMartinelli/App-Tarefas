@@ -20,6 +20,14 @@ const Cabecalho = styled.h2`
     margin-right: 36px;
 `
 
+const TituloTarefa = styled.h3`
+    display: flex;
+    justify-content: space-between;
+    textAlign: 'center';
+    margin-right: 36px;
+    word-break: normal;
+`
+
 export default function ListaTarefas() {
     const [tarefasConcluidas, setTarefasConcluidas] = useState<Array<any>>([])
     const [tarefas, setTarefas] = useState<TarefaInterface[]>([]);
@@ -41,8 +49,8 @@ export default function ListaTarefas() {
                 <Cabecalho>Concluída?</Cabecalho>
             </Card>
             {tarefas.map((tarefa, index) => (
-                <Card key={index} justifyContent="space-around">
-                    <h3>{tarefa.titulo}</h3>
+                <Card key={index} justifycontent="space-around">
+                    <TituloTarefa>{tarefa.titulo}</TituloTarefa>
                     <p>{tarefa.descricao}</p>
                     <input type="checkbox" checked={tarefa.concluida} onChange={(e) => {
                         tarefas[index].concluida = e.target.checked

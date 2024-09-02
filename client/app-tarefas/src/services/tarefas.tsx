@@ -1,12 +1,15 @@
 import axios from "axios";
 import { TarefaInterface } from "../interfaces/tarefaInterface";
+import api from "./api";
 
 const tarefasApi = axios.create({
-    baseURL: "http://localhost:9000/tarefas",
-    headers: { Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJ0ZXN0ZTVAdGVzdGUuY29tIiwibm9tZSI6IkpvYW8gZGFzIGNhbGNhIGJyYW5jYSIsImNwZiI6IjExMTExMTExMTExIiwic2VuaGEiOiIkMmIkMTAkYmtid0ZnTnpTaFhFa095ZjJPTmVPZXFtaWpMSjA4Lnd1OTdOQmlYVVhMSTF2QjY4WDJDd1MiLCJpYXQiOjE3MjUxMjQ3MzB9.q-WWues0oAFRMsfJMSaxLbQUIF3famWdaEJ7ELRSSUE" }
+    baseURL: `${api.defaults.baseURL}/tarefas`,
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
 });
 
 async function getTarefas(): Promise<TarefaInterface[]> {
+    console.log(tarefasApi.defaults.baseURL);
+
     const response = await tarefasApi.get("/consultarTodos");
     return response.data;
 };

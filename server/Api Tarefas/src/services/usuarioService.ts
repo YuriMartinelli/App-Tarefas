@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 import { criarHashSenha } from "../utils/criarHashSenha";
-import { validarUsuario } from "../helpers/validadoresHelper";
+import { validarCriacaoUsuario } from "../helpers/validadoresHelper";
 
 export class UsuarioService {
     private prisma: PrismaClient;
@@ -15,7 +15,7 @@ export class UsuarioService {
     }
 
     async cadastrar(infos: any): Promise<Object> {
-        const { error, value } = validarUsuario(infos);
+        const { error, value } = validarCriacaoUsuario(infos);
         if (error) {
             throw new Error(error?.message)
         }
