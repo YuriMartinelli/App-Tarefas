@@ -12,12 +12,9 @@ export default function Login() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const response = await fetchLogin();
-        console.log();
         localStorage.setItem('token', response.token);
         
         if (response.token) {
-            console.log("oi");
-            
             window.location.href = "/tarefa";
         }
     };

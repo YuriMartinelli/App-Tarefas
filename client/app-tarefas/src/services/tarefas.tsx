@@ -14,6 +14,12 @@ async function getTarefas(): Promise<TarefaInterface[]> {
     return response.data;
 };
 
+async function postTarefa(tarefa: Partial<TarefaInterface>): Promise<TarefaInterface> {
+    const response = await tarefasApi.post("/cadastrar", tarefa);
+    return response.data;
+};
+
 export {
     getTarefas,
+    postTarefa,
 }

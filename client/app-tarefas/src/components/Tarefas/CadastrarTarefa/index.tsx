@@ -1,6 +1,9 @@
 import styled from "styled-components"
 import { Botao } from "../../Botao"
 import Input from "../../Input"
+import { useState } from "react"
+import { postTarefa } from "../../../services/tarefas"
+import { Button, Form } from "react-bootstrap"
 
 const CadastrarTarefaContainer = styled.div`
     display: flex;
@@ -34,24 +37,53 @@ const SalvarTarefaBotao = styled.div`
 
 
 export default function CadastrarTarefa() {
+    const [titulo, setTitulo] = useState('');
+    const [descricao, setDescricao] = useState('');
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const response = await fetchCadastrarTarefa();
+
+        console.log(response);
+    }
+
+    const tarefa = {
+        titulo: titulo,
+        descricao: descricao,
+        concluida: false
+    }
+
+    async function fetchCadastrarTarefa() {
+        return await postTarefa(tarefa);
+    }
+
     return (
         <div>
             <CadastrarTarefaContainer>
-                <form className="form-floating">
+                <Form onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="titulo">Título:</label>
-                        <CadastrarTarefaInput className="form-control" type="text" id="titulo" placeholder="Digite o título da tarefa" />
+                        <Form.Label htmlFor="titulo">Título:</Form.Label>
+                        <Form.Control
+                            type="text"
+                            id="titulo"
+                            placeholder="Digite o título da tarefa"
+                            value={titulo}
+                            onChange={(e) => setTitulo(e.target.value)} />
                     </div>
                     <div>
-                        <label htmlFor="descricao">Descrição:</label>
-                        <CadastrarTarefaInput className="form-control" id="descricao" placeholder="Digite a descrição da tarefa" />
+                        <Form.Label htmlFor="descricao">Descrição:</Form.Label>
+                        <Form.Control
+                            id="descricao"
+                            placeholder="Digite a descrição da tarefa"
+                            value={descricao}
+                            onChange={(e) => setDescricao(e.target.value)} />
                     </div>
-                </form>
+                    <SalvarTarefaBotao >
+                        <Button variant="success" color="white" type="submit">Cadastrar</Button>
+                    </SalvarTarefaBotao>
+                </Form>
             </CadastrarTarefaContainer>
-            <SalvarTarefaBotao >
-                <Botao className="btn btn-success" color="white">Cadastrar</Botao>
-            </SalvarTarefaBotao>
         </div>
-
     )
 }

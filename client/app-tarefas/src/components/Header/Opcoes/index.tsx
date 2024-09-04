@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Opcoes = styled.ul`
@@ -21,7 +22,9 @@ export default function OpcoesHeader() {
     return (
         <Opcoes>
             <Opcao>Tarefas cadastradas</Opcao>
-            <Opcao>Cadastrar Tarefas</Opcao>
+            <Link to="/cadastrarTarefa">
+                <Opcao>Cadastrar Tarefas</Opcao>
+            </Link>
         </Opcoes>
     )
 

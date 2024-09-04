@@ -8,6 +8,7 @@ import Header from './components/Header';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Tarefas from './routes/Tarefas';
 import Login from './routes/Login';
+import CadastrarTarefa from './components/Tarefas/CadastrarTarefa';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -38,9 +39,9 @@ root.render(
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<Login />} />
         <Route path="/tarefa" element={<Tarefas/>} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="/cadastrarTarefa" element={<CadastrarTarefa/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

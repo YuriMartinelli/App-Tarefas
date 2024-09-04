@@ -1,8 +1,5 @@
-import ListaTarefas from '../components/Tarefas/ListaTarefas';
 import styled from 'styled-components';
-import CadastrarTarefa from '../components/Tarefas/CadastrarTarefa';
-import Login from './Login';
-import CadastrarUsuario from '../components/CadastrarUsuario';
+import Tarefas from './Tarefas';
 
 const AppContainer = styled.div`
     width: 100vw;
